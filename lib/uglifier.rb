@@ -288,7 +288,11 @@ class Uglifier
   end
 
   def parse_result(result, generate_map, options)
-    raise Error, error_message(result, options) if result.has_key?('error')
+    if result.has_key?('error')
+      p result['error']
+      p result
+      raise Error, error_message(result, options)
+    end
 
     if generate_map
       [result['code'] + source_map_comments, result['map']]
